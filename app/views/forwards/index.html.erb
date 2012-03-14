@@ -1,6 +1,14 @@
 <%= title mess(:mail_forward_settings_for, user:current_user.userid) %>
 
 <%= form_tag update_multiple_forwards_path, :method => :put do |f| %>
+  <% @forwards.each_with_index do |forward,i| %>
+    <%= render 'address_field', i:i+1 %>
+  <% end %>
+  <li>
+    <%= label_tag :keep, mess(:keep_a_copy_on_the_server) %>
+    <%= check_box_tag :keep %>
+    <%= submit_tag add(:address_field) %>
+  </li>
   <div id="flash_plus_button">
     <%= render 'layouts/flash', flash:flash %>
     <%= submit_tag t(:update) %>

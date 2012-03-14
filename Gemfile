@@ -7,6 +7,7 @@ gem 'redis'
 gem 'formtastic'
 gem 'cancan'
 gem 'jquery-rails'
+gem 'rabl'
 
 group :development do
   gem "rspec-rails"

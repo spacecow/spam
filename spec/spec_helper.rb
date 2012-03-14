@@ -21,3 +21,9 @@ end
 Spork.each_run do
   FactoryGirl.reload
 end
+
+RSpec.configure do |config|
+  config.before(:each) do
+    Forward.stub(:load).and_return []
+  end
+end

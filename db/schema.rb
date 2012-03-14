@@ -11,7 +11,13 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120307073659) do
+ActiveRecord::Schema.define(:version => 20120314062154) do
+
+  create_table "forwards", :force => true do |t|
+    t.string   "address"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "locales", :force => true do |t|
     t.string   "name"

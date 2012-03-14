@@ -18,6 +18,6 @@ Spam::Application.routes.draw do
     end
   end
 
-
-  root :to => 'sessions#new'
+  get 'welcome' => 'forwards#index'
+  root :to => 'forwards#index'
 end
