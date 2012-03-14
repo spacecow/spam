@@ -1,0 +1,25 @@
+<%= form_tag update_multiple_translations_path, :method => :put do |f| %>
+
+<table id="translations">
+  <tr>
+    <th><%= ft(:key) %></th>
+    <% languages(@translations).each do |lang| %>
+      <th><%= jt(lang) %></th>
+    <% end %>
+  </tr>
+  <% sorted_unique_suffixes(@translations).each_with_index do |suffix,i| %>
+    <tr>
+      <td id="key"><%= suffix %></td>
+      <% languages(@translations).each do |lang| %>
+        <td id="<%= lang %>">
+          <%= text_field_tag "#{lang}[#{i}][value]", translate_or_skip(suffix,lang) %>
+          <%= hidden_field_tag "#{lang}[#{i}][key]", key_value(suffix) %>
+          <%= hidden_field_tag "#{lang}[#{i}][locale]", locale("#{lang}.#{suffix}") %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
+
+<%= submit_tag update(:translation,2) %>
+<% end %>

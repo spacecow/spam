@@ -1,0 +1,145 @@
+en:
+  action: "Action"
+  action_sentence: 'then %{operation} "%{destination}".'
+  address: "Address %{no}"
+  admin: "Admin"
+  cancel: "Cancel"
+  condition: "Condition"
+  create: "Create"
+  del: "Del"
+  delete: "Delete"
+  edit: "Edit"
+  english: "English"
+  filtering_rule: "Filtering Rule"
+  flexible_information_system_research_center: "Flexible Information System Research Center"
+  forwarding_address: "Address"
+  japanese: "日本語"
+  locale: "Locale"
+  login: "Login"
+  logout: "Logout"
+  mail_filtering: "Mail-filtering"
+  mail_filter_settings_for: "Mail Filter Settings for %{user}"
+  mail_forwarding: "Mail-forwarding"
+  mail_forward_settings_for: "Mail Forward Settings for %{user}"
+  mail_forward_login: "Mail Forward Login"
+  member: "Member"
+  message: "Message"
+  message_to: "Message to %{user}"
+  mini_admin: "mini-admin"
+  or: " or "
+  possessive: "%{owner}'s %{obj}"
+  profile: "Profile"
+  remove_action: "Remove Action"
+  remove_rule: "Remove Rule"
+  rule: "Rule"
+  rule_sentence_end_and: 'and %{section} %{part}, '
+  rule_sentence_end_or: 'or %{section} %{part}, '
+  rule_sentence_and: 'and %{section} %{part}'
+  rule_sentence_or: 'or %{section} %{part}'
+  rule_sentence_start: 'If %{section} %{part}, '
+  rule_sentence_start_and: 'If %{section} %{part}'
+  rule_sentence_start_or: 'If %{section} %{part}'
+  show: "Show"
+  sign_up: "Sign up"
+  role: "Role"
+  title: "Title"
+  update: "Update"
+  label:
+    add: "Add %{obj}"
+    create: "Create %{obj}"
+    edit: "Edit %{obj}"
+    list: "List %{obj}"
+    new: "New %{obj}"
+    remove: "Remove %{obj}"
+    send: "Send %{obj}"
+    show: "Show %{obj}"
+    update: "Update %{obj}"
+    verify: "Verify %{obj}"
+    view: "View %{obj}"
+    view_own: "View own %{obj}"
+  alert:
+    incorrect_username_or_password: "Invalid login or password."
+    incorrect: "%{obj} incorrect."
+    unauthorized_access: "Unauthorized access."
+  notice:
+    logged_in: "Successfully logged in."
+    logged_out: "Successfully logged out."
+    message_sent: "Thank you. Your message has been sent."
+    thank_you_for_sending: "Thank you. Your comment has been sent to the editor."
+    thank_you_for_signing_up: "Thank you for signing up! You are now logged in."
+  messages:
+    not_you?: "Not you?"
+    or: "%{obj1} or %{obj2}"
+    perform_these_actions: "Perform these actions:"
+    sure?: "Are you sure?"
+    welcome: "Welcome %{user}."
+    priorities:
+      high: "high"
+      low: "low"
+      normal: "normal"
+      urgent: "urgent"
+    types:
+      bug: "bug"
+      comment: "comment"
+      enhancement: "enhancement"
+      feature: "feature"
+  success:
+    added: "Successfully added %{obj}."
+    created: "Successfully created %{obj}."
+    deleted: "Successfully deleted %{obj}."
+    removed: "Successfully removed %{obj}."
+    updated: "Successfully updated %{obj}."  
+  formtastic:
+    labels:
+      affiliation: "Affiliation"
+      content: "Content"
+      email: "Email"
+      keep_a_copy: "Keep a copy on the server" 
+      key: "Key"
+      locale: "Locale"
+      message: "Message"
+      name: "Name"
+      password: "Password"
+      password_confirmation: "Password confirmation"
+      priority: "Priority"
+      sender: "Sender"
+      subject: "Subject"
+      title: "Title"
+      type: "Type"
+      username: "Username"
+      value: "Value"
+  filters:
+    glues:
+      match_all: "Match all the following"
+      match_any: "Match any of the following"
+  rules:
+    parts:
+      begins_with: "begins with"
+      contains: "contains"
+      ends_with: "ends with"
+      is: "is"
+    sections:
+      cc: "Cc"
+      from: "From"
+      subject: "Subject"
+      to: "To"
+      to_or_cc: "To or Cc"
+      spam_flag: "Spam-Flag"
+  actions:
+    operations:
+      copy_message_to: "Copy Message to"
+      forward_copy_to: "Forward Copy to"
+      forward_message_to: "Forward Message to"
+      move_message_to: "Move Message to"
+
+  address_field: "Address Field"
+  anonymous: "Anonymous"
+  comment: "Comment"
+  dot_forward: "DOT Forward"
+  filter: "Filter"
+  translation: "Translation"
+
+  activerecord:
+    errors:
+      messages:
+        invalid_email: "invalid email address"

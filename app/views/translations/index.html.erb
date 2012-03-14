@@ -1,0 +1,12 @@
+<%= title pl(:translation) %>
+
+<%= render 'translations' if @translations.keys.present? %>
+
+<%= subtitle new(:translation) %>
+
+<%= semantic_form_for @translation do |f| %>
+  <%= f.input :key, label:ft(:key) %>
+  <%= f.input :value, label:ft(:value) %>
+  <%= f.input :locale_token, label:ft(:locale), "data-url" => locales_path(:format=>:json) %>
+  <%= submit f,@translation %>
+<% end %>

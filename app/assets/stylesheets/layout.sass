@@ -1,0 +1,71 @@
+@import "compass/css3/border-radius"
+
+$main_frame_border_colour: #2c4153
+$main_frame_colour: #486e92
+
+$contents_container_width: 400px
+$main_width: 380px
+$main_margin_width: ($contents_container_width - $main_width)/2
+
+$main_radius: 10px
+$user_nav_height: 24px
+
+$label_width: 100px
+$label_margin_width: 5px
+$full_label_width: $label_width + $label_margin_width
+
+div.clear
+  clear: both
+  height: 0
+  overflow: hidden
+a
+  text-decoration: none
+  color: $main_frame_colour
+
+form
+  li
+    padding-left: $full_label_width 
+    list-style-type: none 
+    label
+      float: left
+      width: $label_width
+      text-align: right
+      margin: 4px $label_margin_width 0 $full_label_width * -1
+  div#flash_plus_button
+    padding-left: 300px
+    margin-top: 10px
+    background: $main_frame_colour
+    div.flash
+      margin: 12px 0 0 -290px
+      float: left
+      color: white
+    input
+      margin: 10px 0 5px 0 
+
+div#contents_container
+  margin: 90px auto 0 auto 
+  width: $contents_container_width 
+  div#main_container
+    background: $main_frame_colour
+    +border-radius($main_radius)
+    div#user_nav
+      font-size: 14px
+      height: $user_nav_height
+      margin-left: $main_margin_width
+      padding-top: 5px
+      a
+        color: white
+    div#main
+      width: 380px
+      margin: 0 auto
+      background: white
+      border: 1px solid $main_frame_border_colour
+      padding: 0
+      h1
+        font-size: 18px
+        margin: 15px 0 10px $main_margin_width
+        font-weight: bold
+  div#footer
+    font-size: 11px
+    font-style: italic
+    text-align: right

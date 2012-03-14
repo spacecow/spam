@@ -1,0 +1,9 @@
+<%= title mess(:mail_filter_settings_for, user:current_user.userid) %>
+
+<div id="flash_plus_button">
+  <%= render 'layouts/flash', flash:flash %>
+</div>
+
+<div id="bottom_links">
+  <%= link_to new(:filtering_rule), new_filter_path %>
+</div>

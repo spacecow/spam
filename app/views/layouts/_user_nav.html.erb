@@ -1,0 +1,7 @@
+<div id="user_nav">
+  <% if current_user %>
+    <%= link_to jt(:logout), logout_path %>
+  <% else %>
+    <%= link_to jt(:login), login_path %>
+  <% end %>
+</div>

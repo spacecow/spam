@@ -1,0 +1,1 @@
+/home/jsveholm/apps/basiq/spec/request/translations_index/layout_spec.rb
