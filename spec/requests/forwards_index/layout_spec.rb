@@ -37,7 +37,7 @@ describe 'Filter, forward:' do
   context 'layout, with forwards' do
     before(:each) do
       Filter.unstub(:read_forward_filters)
-      Filter.write_procmail(":0\n*\n!example@email.com")
+      Filter.write_forward_filters(":0\n*\n!example@email.com")
       login_member
       visit forward_path
     end
