@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe 'Forwards, index:' do
-  context 'layout, without forwards' do
+describe 'Filter, forward:' do
+  context 'layout, without filters' do
     before(:each) do
       login_member
-      visit forwards_path
+      visit forward_path
     end
 
     it "has a title" do
@@ -32,14 +32,14 @@ describe 'Forwards, index:' do
     it "a button: Update should exist" do
       form.should have_button("Update")
     end
-  end #layout, without forwards
+  end #layout, without filters
 
-  context 'layout, with forwards', focus:true do
+  context 'layout, with forwards' do
     before(:each) do
-      Forward.unstub(:load)
-      load_procmail(":0\n*\n!example@email.com")
+      Filter.unstub(:read_forward_filters)
+      Filter.write_procmail(":0\n*\n!example@email.com")
       login_member
-      visit forwards_path
+      visit forward_path
     end
 
     it "" do

@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
       user = User.find_or_create_by_userid(userid)
       session_userid(user.id)
       session_password(passwd)
-      redirect_to forwards_path, :notice => notify(:logged_in)
+      redirect_to forward_path, :notice => notify(:logged_in)
     else
       redirect_to login_path, :alert => alertify(:invalid_login_or_password)
     end

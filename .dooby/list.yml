@@ -1,3 +1,5 @@
 --- 
 62fe6b: !ruby/object:Dooby::Task 
   todo: jqueryinput on locales :done
+6b0398: !ruby/object:Dooby::Task 
+  todo: change forward to filter :doing
