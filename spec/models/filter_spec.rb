@@ -16,7 +16,7 @@ describe Filter do
       end
 
       after(:each) do
-        Filter.read_forward_filters.should eq ":0\n*\n!example@email.com\n"
+        Filter.read_forward_filters.should eq [Filter.last]
       end
     end
   end

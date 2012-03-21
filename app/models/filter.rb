@@ -2,13 +2,23 @@ class Filter < ActiveRecord::Base
   has_many :rules
   has_many :actions
 
+  def action
+    raise "There exists more than one action for a rule." if actions.first != actions.last
+    actions.first
+  end
+
+  def destination
+    return nil if actions.empty?
+    action.destination
+  end
+
   class << self
     def read_forward_filters(userid="test",passwd="correct")
       p "Loading .procmailrc..."
       IO.popen("/usr/local/bin/chprocmailrc -g #{userid}", 'r+') do |pipe|
         pipe.write(passwd)
         pipe.close_write
-        pipe.read
+        factory(pipe.read)
       end
     end
 
@@ -30,7 +40,7 @@ class Filter < ActiveRecord::Base
       def forward_factory(a)
         filters = []
         while !a.empty?
-          filter = Filter.new
+          filter = Filter.create
           op = a.shift
           filter.rules << Rule.forward_factory(a)
           filter.actions << Action.forward_factory(op,a)

@@ -4,7 +4,6 @@ describe 'Filter, forward:' do
   context 'layout, without filters' do
     before(:each) do
       login_member
-      visit forward_path
     end
 
     it "has a title" do
@@ -34,15 +33,25 @@ describe 'Filter, forward:' do
     end
   end #layout, without filters
 
-  context 'layout, with forwards' do
+  context 'layout, with filters' do
     before(:each) do
       Filter.unstub(:read_forward_filters)
       Filter.write_forward_filters(":0\n*\n!example@email.com")
       login_member
-      visit forward_path
     end
 
-    it "" do
+    it "has five fields for address input" do
+      form.lis_no('address').should be(5)
     end
-  end
+
+    it "address field 1 should contain an address" do
+      value("Address 1").should eq "example@email.com"
+    end
+
+    4.times do |i|
+      it "address field #{i+2} should be empty" do
+        value("Address #{i+2}").should be_nil
+      end
+    end
+  end #layout, with filters
 end

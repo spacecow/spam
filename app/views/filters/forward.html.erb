@@ -2,7 +2,7 @@
 
 <%= form_tag update_multiple_forward_filters_path do %>
   <% @filters.each_with_index do |filter,i| %>
-    <%= render 'address_field', i:i+1 %>
+    <%= render 'address_field', filter:filter, i:i+1 %>
   <% end %>
   <div id="keep">
     <div class="first-col">

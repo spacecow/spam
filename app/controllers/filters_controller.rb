@@ -3,10 +3,9 @@ class FiltersController < ApplicationController
   skip_load_resource :only => :forward
 
   def forward
-    Filter.read_forward_filters(current_userid,current_password)
+    @filters = Filter.read_forward_filters(current_userid,current_password)
 
-    @filters = []
-    5.times do
+    (5-@filters.count).times do
       @filters << Filter.new
     end
   end
