@@ -1,1 +1,1 @@
-/home/jsveholm/apps/basiq/spec/request/rpam_login_spec.rb
+/home/staff/jsveholm/apps/basiq/spec/request/rpam_login_spec.rb

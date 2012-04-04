@@ -1,1 +1,1 @@
-/home/jsveholm/apps/basiq/app/helper/basic_application_controller.rb
+/home/staff/jsveholm/apps/basiq/app/helper/basic_application_controller.rb
