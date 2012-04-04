@@ -29,6 +29,16 @@ a
   text-decoration: none
   color: $main_frame_colour
 
+.hide
+  height: 0
+  visibility: hidden
+
+div#error
+  margin: 5px 10px
+  background: lightgray
+div#msg
+  margin: 5px 10px
+
 form
   li
     padding-left: $full_label_width 
@@ -38,11 +48,16 @@ form
       width: $label_width
       text-align: right
       margin: 4px $label_margin_width 0 $full_label_width * -1
+    p.inline-errors
+      color: red
+      font-style: italic
   div#flash_plus_button
+    height: 39px
     padding-left: 300px
     margin-top: 10px
     background: $main_frame_colour
     div.flash
+      font-size: 12px
       margin: 12px 0 0 -290px
       float: left
       color: white

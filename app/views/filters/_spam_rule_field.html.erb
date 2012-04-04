@@ -1,0 +1,11 @@
+<li class="antispam">
+  <%= label_tag "filter[#{i}][operation]", jt(:spam_filter) %>
+  <%= select_tag "filter[#{i}][operation]", options_for_select(Rule.anti_spam_options, filter.rule_section), :include_blank => true %>
+</li>
+<li class="folder">
+  <%= label_tag "filter[#{i}][destination]", jt(:folder) %>
+  <%= text_field_tag "filter[#{i}][destination]", filter.destination %>
+  <p class="inline-errors">
+    <%= filter.errors["actions.destination"].join %>
+  </p>
+</li>

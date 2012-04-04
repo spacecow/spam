@@ -11,35 +11,59 @@ a {
   color: #486e92;
 }
 
-/* line 33, ../../app/assets/stylesheets/layout.sass */
+/* line 32, ../../app/assets/stylesheets/layout.sass */
+.hide {
+  height: 0;
+  visibility: hidden;
+}
+
+/* line 36, ../../app/assets/stylesheets/layout.sass */
+div#error {
+  margin: 5px 10px;
+  background: lightgray;
+}
+
+/* line 39, ../../app/assets/stylesheets/layout.sass */
+div#msg {
+  margin: 5px 10px;
+}
+
+/* line 43, ../../app/assets/stylesheets/layout.sass */
 form li {
   padding-left: 105px;
   list-style-type: none;
 }
-/* line 36, ../../app/assets/stylesheets/layout.sass */
+/* line 46, ../../app/assets/stylesheets/layout.sass */
 form li label {
   float: left;
   width: 100px;
   text-align: right;
   margin: 4px 5px 0 -105px;
 }
-/* line 41, ../../app/assets/stylesheets/layout.sass */
+/* line 51, ../../app/assets/stylesheets/layout.sass */
+form li p.inline-errors {
+  color: red;
+  font-style: italic;
+}
+/* line 54, ../../app/assets/stylesheets/layout.sass */
 form div#flash_plus_button {
+  height: 39px;
   padding-left: 300px;
   margin-top: 10px;
   background: #486e92;
 }
-/* line 45, ../../app/assets/stylesheets/layout.sass */
+/* line 59, ../../app/assets/stylesheets/layout.sass */
 form div#flash_plus_button div.flash {
+  font-size: 12px;
   margin: 12px 0 0 -290px;
   float: left;
   color: white;
 }
-/* line 49, ../../app/assets/stylesheets/layout.sass */
+/* line 64, ../../app/assets/stylesheets/layout.sass */
 form div#flash_plus_button input {
   margin: 10px 0 5px 0;
 }
-/* line 51, ../../app/assets/stylesheets/layout.sass */
+/* line 66, ../../app/assets/stylesheets/layout.sass */
 form div#keep {
   padding-left: 230px;
   margin-top: 10px;
@@ -49,17 +73,17 @@ form div#keep div.first-col {
   margin-left: -220px;
   float: left;
 }
-/* line 53, ../../app/assets/stylesheets/layout.sass */
+/* line 68, ../../app/assets/stylesheets/layout.sass */
 form div#keep label {
   font-size: 14px;
 }
 
-/* line 56, ../../app/assets/stylesheets/layout.sass */
+/* line 71, ../../app/assets/stylesheets/layout.sass */
 div#contents_container {
   margin: 90px auto 0 auto;
   width: 400px;
 }
-/* line 59, ../../app/assets/stylesheets/layout.sass */
+/* line 74, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container {
   background: #486e92;
   -webkit-border-radius: 10px;
@@ -68,18 +92,18 @@ div#contents_container div#main_container {
   -o-border-radius: 10px;
   border-radius: 10px;
 }
-/* line 62, ../../app/assets/stylesheets/layout.sass */
+/* line 77, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#user_nav {
   font-size: 14px;
   height: 24px;
   margin-left: 10px;
   padding-top: 5px;
 }
-/* line 67, ../../app/assets/stylesheets/layout.sass */
+/* line 82, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#user_nav a {
   color: white;
 }
-/* line 69, ../../app/assets/stylesheets/layout.sass */
+/* line 84, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#main {
   width: 380px;
   margin: 0 auto;
@@ -87,13 +111,13 @@ div#contents_container div#main_container div#main {
   border: 1px solid #2c4153;
   padding: 0;
 }
-/* line 75, ../../app/assets/stylesheets/layout.sass */
+/* line 90, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#main h1 {
   font-size: 18px;
   margin: 15px 0 10px 10px;
   font-weight: bold;
 }
-/* line 79, ../../app/assets/stylesheets/layout.sass */
+/* line 94, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#footer {
   font-size: 11px;
   font-style: italic;

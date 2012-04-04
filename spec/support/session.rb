@@ -10,9 +10,9 @@ def login_admin
   login('admin')
   admin 
 end
-def login_member
-  member = create_member(:userid => 'member')
-  login('member')
+def login_member(userid='member')
+  member = create_member(:userid => userid)
+  login(userid)
   member 
 end
 

@@ -1,0 +1,15 @@
+<%= title jt(:error) %>
+
+<div id="error">
+  <%= @error %><br />
+</div>
+
+<div id="msg">
+  <%= mess(:inform_fir) %>
+</div>
+
+<%= form_tag update_multiple_forward_filters_path, :method => :put do %>
+  <div id="flash_plus_button">
+    <%= render 'layouts/flash', flash:flash %>
+  </div>
+<% end %>

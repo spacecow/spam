@@ -1,0 +1,7 @@
+<li class="forward hide">
+  <%= text_field_tag "filter[#{i}][actions_attributes][0][operation]", filter.action.operation %>
+  <%= text_field_tag "filter[#{i}][actions_attributes][0][destination]", filter.action.destination %>
+  <%= text_field_tag "filter[#{i}][rules_attributes][0][section]", filter.rule.section %>
+  <%= text_field_tag "filter[#{i}][rules_attributes][0][part]", filter.rule.part %>
+  <%= text_field_tag "filter[#{i}][rules_attributes][0][content]", filter.rule.content %>
+</li>

@@ -2,7 +2,7 @@ class ApplicationController < ActionController::Base
   include BasicApplicationController
   protect_from_forgery
 
-  helper_method :jt, :current_user, :pl, :current_userid
+  helper_method :jt, :current_user, :pl, :current_userid, :error
 
   rescue_from CanCan::AccessDenied do |exception|
     exception.default_message = alertify(:unauthorized_access)

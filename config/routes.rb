@@ -5,13 +5,16 @@ Spam::Application.routes.draw do
   get 'logout' => 'sessions#destroy'
   resources :sessions, :only => [:new,:create,:destroy]
 
-  resources :filters, :only => :index do
+  resources :filters, :only => :create do
     collection do
       get :forward
       put :update_multiple_forward
+      get :antispam
+      put :update_multiple_antispam
     end
   end
   get 'forward' => 'filters#forward'
+  get 'antispam' => 'filters#antispam'
 
   resources :locales, :only => :index
   resources :translations, :only => [:index,:create] do

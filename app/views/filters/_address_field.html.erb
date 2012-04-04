@@ -1,4 +1,7 @@
 <li class="address">
   <%= label_tag "filter[#{i}][address]", jt(:address,no:i) %>
   <%= text_field_tag "filter[#{i}][address]", filter.destination %>
+  <p class="inline-errors">
+    <%= filter.errors["actions.destination"].join %>
+  </p>
 </li>
