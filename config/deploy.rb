@@ -1,5 +1,3 @@
-require "whenever/capistrano"
-
 default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
