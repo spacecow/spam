@@ -4,9 +4,9 @@ describe 'Filter, antispam: update filter,' do
   context 'emtpy filter' do
     before(:each) do
       login_member
-      Filter.stub(:read_filters).and_return [] 
+      Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
-      Filter.stub(:read_filters).and_return [] 
+      Filter.stub(:read_filters).and_return [[],""] 
       click_button 'Update'
     end
 
@@ -17,9 +17,9 @@ describe 'Filter, antispam: update filter,' do
   context "folder error" do
     before(:each) do
       login_member
-      Filter.stub(:read_filters).and_return [] 
+      Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
-      Filter.stub(:read_filters).and_return [] 
+      Filter.stub(:read_filters).and_return [[],""] 
       select "Enabled", :from => "Spam Filter"
     end
 
@@ -36,14 +36,14 @@ describe 'Filter, antispam: update filter,' do
     end
   end
 
-  context 'without forward' do
+  context 'without forward filters' do
     before(:each) do
-      Filter.unstub(:read_filters)
-      Filter.write_filters("")
-      @member = login_member
+      login_member
+      Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       fill_in 'Folder', :with => 'Spam'
+      Filter.unstub(:read_filters)
       click_button 'Update'
     end
     
@@ -60,52 +60,60 @@ describe 'Filter, antispam: update filter,' do
     end
 
     it "gets saved to .procmailrc" do
-      Filter.read_filters(@member.id,"correct").map(&:to_file).should eq [":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Spam/"]
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Spam/"
     end
   end
 
-  context 'with forward' do
+  context 'with forward&prolog' do
     before(:each) do
+      Filter.stub(:read_filters).and_return [[],""] 
+      login_member
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0\n*\n!example@email.com")
-      @member = login_member
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0\n*\n!example@email.com")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       click_button 'Update'
     end
 
     it "gets saved to .procmailrc" do
-      Filter.read_filters(@member.id,"correct").map(&:to_file).should eq [":0\n*\n!example@email.com",":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"]
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0\n*\n!example@email.com\n\n:0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"
+      prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
 
   context 'with antispam' do
     before(:each) do
+      Filter.stub(:read_filters).and_return [[],""] 
+      login_member
       Filter.unstub(:read_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/")
-      @member = login_member
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       click_button 'Update'
     end
 
     it "gets saved to .procmailrc" do
-      Filter.read_filters(@member.id,"correct").map(&:to_file).should eq [":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"]
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"
     end
   end
 
   context 'with antispam&forward' do
     before(:each) do
+      Filter.stub(:read_filters).and_return [[],""] 
+      login_member
       Filter.unstub(:read_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/\n\n:0\n*\n!example@email.com")
-      @member = login_member
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       click_button 'Update'
     end
 
     it "gets saved to .procmailrc" do
-      Filter.read_filters(@member.id,"correct").map(&:to_file).should eq [":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/",":0\n*\n!example@email.com"]
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/\n\n:0\n*\n!example@email.com"
     end
   end
 end

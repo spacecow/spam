@@ -65,14 +65,17 @@ class Filter < ActiveRecord::Base
       end
     end
 
-    def write_filters(s,userid="test",password="password")
+    def write_filters(s,prolog="",userid="test",password="password")
+      p "Writing .procmailrc..."
       IO.popen("/usr/local/sbin/chprocmailrc -s #{userid}", 'r+') do |pipe|
         pipe.write("#{password}\n")
+        pipe.write "#{prolog}\n\n" unless prolog.empty?
         pipe.write("#{s.strip}\n")
         pipe.close_write
       end
     end
     def write_forward(userid="test",password="password")
+      p "Writing .forward..."
       IO.popen("/usr/local/sbin/chfwd -s #{userid}", 'r+') do |pipe|
         pipe.write("#{password}\n")
         pipe.write("\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 ##{userid}\"\n")
@@ -84,7 +87,10 @@ class Filter < ActiveRecord::Base
 
       def abstract_factory(s)
         a = s.split("\n")
-        factories(a)
+        prolog = []
+        prolog << a.shift while a.present? && !(a.first =~ /^:0/)
+        prolog.pop while prolog.present? && prolog.last.blank?
+        [factories(a), prolog.join("\n")]
       end
 
       #def anti_spam_factory(a)
@@ -101,16 +107,17 @@ class Filter < ActiveRecord::Base
         filter.rules << Rule.factory(a)
         filter.actions << Action.factory(op,a)
         raise "Filters are wrongly separated." if a.first.present? 
-        while !a.empty? && a.first.blank?
+        #while !a.empty? && a.first.blank?
           #raise "All filters but the last must have the copy operator." if Action.get_operation(op) == Action::FORWARD_MESSAGE_TO
-          a.shift 
-        end
+        #  a.shift 
+        #end
         filter
       end
 
       def factories(a)
         filters = []
         while !a.empty?
+          a.shift while a.first.blank?
           filters << factory(a) 
         end
         filters

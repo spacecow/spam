@@ -24,6 +24,8 @@ end
 
 RSpec.configure do |config|
   config.before(:each) do
-    Filter.stub(:read_filters).and_return [] 
+    Filter.stub(:read_filters).and_return [[],""] 
+    Filter.stub(:read_forward).and_return "" 
+    Filter.stub(:write_forward).and_return nil 
   end
 end

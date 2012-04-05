@@ -18,11 +18,11 @@ group :assets do
 end
 
 group :test do
-#  gem 'spork'
-#  gem 'capybara'
-#  gem 'guard'
-#  gem 'guard-rspec'
-#  gem 'guard-spork'
-#  gem 'factory_girl_rails'
-#  gem 'launchy'
+  gem 'spork'
+  gem 'capybara'
+  gem 'guard'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'factory_girl_rails'
+  gem 'launchy'
 end

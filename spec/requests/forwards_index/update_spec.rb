@@ -1,43 +1,48 @@
 require 'spec_helper'
 
 describe 'Filter, forward: update,' do
-  context 'with antispam filters' do
+  context 'with antispam filters&prolog' do
     before(:each) do
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/")
-      @member = login_member
+      login_member
       click_button 'Update'
     end
 
     it "gets saved to .procmailrc" do
-      Filter.read_filters(@member.id,"correct").map(&:to_file).should eq [":0:\n* ^X-Spam-Flag: YES\n.Junk/"]
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/"
+      prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
 
-  context 'with antispam&forward filters' do
+  context 'with antispam&forward filters&prolog' do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/")
-      @member = login_member
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      login_member
       fill_in 'Address 1', with:'example@email.com'
       click_button 'Update'
     end
 
     it "gets saved to .procmailrc" do
-      Filter.read_filters(@member.id,"correct").map(&:to_file).should eq [":0:\n* ^X-Spam-Flag: YES\n.Junk/",":0\n*\n!example@email.com"]
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/\n\n:0\n*\n!example@email.com"
+      prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
 
   context 'updates .forward' do
     before(:each) do
-      @member = login_member
-      Filter.stub(:read_filters).and_return [] 
+      login_member
+      Filter.unstub(:read_forward)
+      Filter.stub(:read_filters).and_return [[],[]] 
       fill_in 'Address 1', with:'example@email.com'
       click_button 'Update'
     end
     
     it "gets saved to .forward" do
-      Filter.read_forward(@member.id,"correct").should eq "\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 #member\""
+      Filter.read_forward.should eq "\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 #member\""
     end
   end
 end

@@ -4,7 +4,7 @@ describe 'Filter, antispam: layout,' do
   context 'without filters' do
     before(:each) do
       login_member
-      Filter.stub(:read_filters).and_return [] 
+      Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
     end
 

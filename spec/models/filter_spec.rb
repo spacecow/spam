@@ -1,6 +1,25 @@
 require 'spec_helper'
 
 describe Filter do
+  context "read prolog from .procmailrc" do
+    before(:each) do
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.unstub(:read_filters)
+      @filters, @prolog = Filter.read_filters
+    end
+
+    it "the prolog is returned" do
+      @prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
+    end
+
+    it "prolog is saved together with the filters" do
+      Filter.write_filters(@filters.to_file,@prolog)
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/"
+      prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
+    end
+  end
+
   describe "#read/write medium anti spam filters" do
     before(:each) do
       Filter.unstub(:read_filters)
@@ -23,7 +42,8 @@ describe Filter do
       end
 
       after(:each) do
-        Filter.read_filters.should eq [Filter.last]
+        filters, prolog = Filter.read_filters
+        filters.should eq [Filter.last]
       end
     end
   end
@@ -50,7 +70,8 @@ describe Filter do
       end
 
       after(:each) do
-        Filter.read_filters.should eq [Filter.last]
+        filters, prolog = Filter.read_filters
+        filters.should eq [Filter.last]
       end
     end
   end
@@ -212,7 +233,7 @@ describe Filter do
 
     context "create a message forward filter with #factory" do
       before(:each) do
-        filters = Filter.send(:abstract_factory,":0\n*\n!example@email.com")
+        filters, prolog = Filter.send(:abstract_factory,":0\n*\n!example@email.com")
         @filter = filters.first
       end
 
@@ -239,7 +260,7 @@ describe Filter do
 
     context "create two filters" do
       before(:each) do
-        @filters = Filter.send(:abstract_factory,":0c\n*\n!example@email.com\n\n:0\n*\n!example@gmail.com")
+        @filters, prolog = Filter.send(:abstract_factory,":0c\n*\n!example@email.com\n\n:0\n*\n!example@gmail.com")
       end
 
       it "the return is of type filter" do

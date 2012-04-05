@@ -1,0 +1,15 @@
+<%= title mess(:anti_spam_settings_for, user:current_userid) %>
+
+<%= form_tag update_multiple_antispam_filters_path, :method => :put do %>
+  <% @filters.each_with_index do |filter,i| %>
+    <% if filter.new_record? || filter.is_antispam? %>
+      <%= render 'spam_rule_field', i:i, filter:filter %>
+    <% else %>
+      <%= render 'filter_field', i:i, filter:filter %>
+    <% end %>
+  <% end %>
+  <div id="flash_plus_button">
+    <%= render 'layouts/flash', flash:flash %>
+    <%= submit_tag jt(:update) %>
+  </div>
+<% end %>

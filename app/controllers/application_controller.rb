@@ -18,6 +18,14 @@ class ApplicationController < ActionController::Base
   def current_userid; current_user.userid end
   def current_password; session_password end
 
+  def session_prolog(*opt)
+    if opt.present? 
+      session[:prolog] = opt.first
+    else
+      session[:prolog]
+    end
+  end
+
   private
 
     def session_password(*opt)
