@@ -7,3 +7,5 @@
   todo: simple filter/rule/action :done
 af34bd: !ruby/object:Dooby::Task 
   todo: change \s to .* in rule :done
+dd2868: !ruby/object:Dooby::Task 
+  todo: change barracuda to assasin :done

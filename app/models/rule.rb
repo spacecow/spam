@@ -42,7 +42,7 @@ class Rule < ActiveRecord::Base
     #end
 
     def anti_spam_options
-      ANTI_SPAM_OPTIONS.map{|e| I18n.t(e)}.zip([X_BARRACUDA_SPAM_FLAG])
+      ANTI_SPAM_OPTIONS.map{|e| I18n.t(e)}.zip([X_SPAM_FLAG])
     end
 
     def factory(a)

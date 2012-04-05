@@ -60,14 +60,14 @@ describe 'Filter, antispam: layout,' do
     before(:each) do
       Filter.unstub(:read_filters)
       Filter.unstub(:write_filters)
-      Filter.write_filters(":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Spam/")
+      Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Spam/")
       login_member
       visit antispam_path
     end
 
     it "layout" do
       #the spam selector is selected
-      value("Spam Filter").should eq 'X-Barracuda-Spam-Flag' 
+      value("Spam Filter").should eq 'X-Spam-Flag' 
       #the folder field is default to Junk
       value("Folder").should eq 'Spam'
       #has only one field for antispam input

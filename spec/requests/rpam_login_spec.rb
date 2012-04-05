@@ -44,6 +44,12 @@ describe "Sessions" do
         lambda{ login
         }.should change(User,:count).by(1)
       end
+
+      it "redirects to wanted page after login" do
+        visit antispam_path
+        login
+        current_path.should eq antispam_path
+      end 
     end
 
     context "logout user" do

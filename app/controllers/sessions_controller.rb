@@ -13,7 +13,14 @@ class SessionsController < ApplicationController
       user = User.find_or_create_by_userid(userid)
       session_userid(user.id)
       session_password(passwd)
-      redirect_to forward_path, :notice => notify(:logged_in)
+      flash[:notice] = notify(:logged_in)
+      if session_original_url
+        url = session_original_url
+        session_original_url(nil)
+        redirect_to url and return
+      else
+        redirect_to forward_path 
+      end
     else
       redirect_to login_path, :alert => alertify(:invalid_login_or_password)
     end
