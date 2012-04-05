@@ -9,3 +9,7 @@ af34bd: !ruby/object:Dooby::Task
   todo: change \s to .* in rule :done
 dd2868: !ruby/object:Dooby::Task 
   todo: change barracuda to assasin :done
+67bbe5: !ruby/object:Dooby::Task 
+  todo: add prolog if none
+ebe7a5: !ruby/object:Dooby::Task 
+  todo: change position of log :done

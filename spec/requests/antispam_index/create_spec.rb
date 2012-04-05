@@ -89,7 +89,7 @@ describe 'Filter, antispam: update filter,' do
       login_member
       Filter.unstub(:read_filters)
       Filter.unstub(:write_filters)
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0\n*\n!example@email.com")
+      Filter.write_filters(":0\n*\n!example@email.com","SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       click_button 'Update'
@@ -102,7 +102,7 @@ describe 'Filter, antispam: update filter,' do
     end
   end
 
-  context 'with antispam' do
+  context 'with antispam&no prolog' do
     before(:each) do
       Filter.stub(:read_filters).and_return [[],""] 
       login_member
@@ -117,6 +117,7 @@ describe 'Filter, antispam: update filter,' do
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
       filters.to_file.should eq ":0:\n* ^X-Spam-Flag:.*YES\n.Junk/"
+      prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=/var/log/procmail/test.log\nVERBOSE=on"
     end
   end
 

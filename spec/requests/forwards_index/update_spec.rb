@@ -21,7 +21,7 @@ describe 'Filter, forward: update,' do
   context 'with antispam filters&prolog' do
     before(:each) do
       Filter.unstub(:write_filters)
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
+      Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/","SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log")
       Filter.unstub(:read_filters)
       login_member
       click_button 'Update'
@@ -53,7 +53,7 @@ describe 'Filter, forward: update,' do
     before(:each) do
       Filter.unstub(:read_filters)
       Filter.unstub(:write_filters)
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
+      Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/","SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log")
       login_member
       fill_in 'Address 1', with:'example@email.com'
       click_button 'Update'

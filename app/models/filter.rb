@@ -73,7 +73,12 @@ class Filter < ActiveRecord::Base
       p "Writing .procmailrc..."
       IO.popen("/usr/local/sbin/chprocmailrc -s #{userid}", 'r+') do |pipe|
         pipe.write("#{password}\n")
-        pipe.write "#{prolog}\n\n" unless prolog.empty?
+        if prolog.empty?
+          pipe.write("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=/var/log/procmail/#{userid}.log\nVERBOSE=on")
+        else
+          pipe.write "#{prolog}" 
+        end
+        pipe.write "\n\n" 
         pipe.write("#{s.strip}\n")
         pipe.close_write
       end
