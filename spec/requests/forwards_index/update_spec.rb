@@ -17,6 +17,21 @@ describe 'Filter, forward: update,' do
     end
   end
 
+  context 'forward&antispam filters' do
+    before(:each) do
+      Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
+      Filter.write_filters(":0c\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
+      login_member
+      uncheck 'Keep a copy on the server'
+      click_button 'Update'
+    end
+
+    it "uncheck copy" do
+      find_field("Keep a copy on the server").should_not be_checked
+    end
+  end
+
   context 'with antispam&forward filters&prolog' do
     before(:each) do
       Filter.unstub(:read_filters)

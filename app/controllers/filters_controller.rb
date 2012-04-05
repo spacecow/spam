@@ -35,7 +35,7 @@ class FiltersController < ApplicationController
       else
         value = params[:filter][k][:address]
         if value.present?
-          if @filters.empty? && params[:keep].nil?
+          if params[:keep].nil?
             @filters << Filter.factory_forward_message(value)
           else
             @filters << Filter.factory_forward_copy(value)
