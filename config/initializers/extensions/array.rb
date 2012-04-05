@@ -10,6 +10,6 @@ class Array
   end
 
   def to_file
-    self.map(&:to_file).join("\n\n")
+    self.sort.map(&:to_file).join("\n\n")
   end
 end

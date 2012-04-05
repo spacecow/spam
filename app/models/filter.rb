@@ -4,6 +4,10 @@ class Filter < ActiveRecord::Base
   accepts_nested_attributes_for :rules
   accepts_nested_attributes_for :actions
 
+  def <=>(filter)
+    self.action <=> filter.action
+  end
+
   def action
     raise "There exists more than one action for a filter." if actions.first != actions.last
     actions.first

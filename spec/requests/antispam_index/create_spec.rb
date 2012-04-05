@@ -134,7 +134,7 @@ describe 'Filter, antispam: update filter,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com"
+      filters.to_file.should eq ":0\n*\n!example@email.com\n\n:0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Junk/"
     end
   end
 end

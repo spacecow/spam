@@ -29,7 +29,7 @@ describe 'Filter, forward: update,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com"
+      filters.to_file.should eq ":0\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/"
       prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
