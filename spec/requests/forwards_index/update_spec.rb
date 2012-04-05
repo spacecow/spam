@@ -1,6 +1,23 @@
 require 'spec_helper'
 
 describe 'Filter, forward: update,' do
+  context '2 forwards without copy' do
+    before(:each) do
+      Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
+      Filter.write_filters('')
+      login_member
+      fill_in 'Address 1', with:'example@email.com'
+      fill_in 'Address 2', with:'example2@email.com'
+      click_button 'Update'
+    end
+
+    it "gets saved to .procmailrc" do
+      filters, prolog = Filter.read_filters
+      filters.to_file.should eq ":0c\n*\n!example@email.com\n\n:0\n*\n!example2@email.com"
+    end
+  end
+
   context 'with antispam filters&prolog' do
     before(:each) do
       Filter.unstub(:write_filters)

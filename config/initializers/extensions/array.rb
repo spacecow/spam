@@ -1,5 +1,5 @@
 class Array
-  def contains_antispam?
+  def contain_antispam?
     self.present? && self.map(&:is_antispam?).include?(true)
   end
 

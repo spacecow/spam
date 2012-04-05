@@ -17,7 +17,7 @@ class FiltersController < ApplicationController
         @keep = 'yes' if @filters.last_forward_action_operation == Action::FORWARD_COPY_TO 
       end
 
-      no = @filters.contains_antispam? ? 6 : 5 
+      no = @filters.contain_antispam? ? 6 : 5 
       (no-@filters.count).times do
         @filters << Filter.new
       end
@@ -29,25 +29,39 @@ class FiltersController < ApplicationController
 
   def update_multiple_forward
     @filters = []
-    params[:filter].keys.reverse.each do |k|
+
+    tot_count = 0
+    params[:filter].keys.each do |k|
+      if params[:filter][k][:actions_attributes]
+      else
+        value = params[:filter][k][:address]
+        if value.present?
+          tot_count += 1
+        end
+      end
+    end
+
+    count = tot_count
+    params[:filter].keys.each do |k|
       if params[:filter][k][:actions_attributes]
         @filters << Filter.create(params[:filter][k])
       else
         value = params[:filter][k][:address]
         if value.present?
-          if params[:keep].nil?
-            @filters << Filter.factory_forward_message(value)
-          else
+          if !params[:keep].nil? || (tot_count > 1 && count > 1)
             @filters << Filter.factory_forward_copy(value)
+          else
+            @filters << Filter.factory_forward_message(value)
           end
+          count -= 1
         end
       end
     end
     unless @filters.map(&:valid?).include?(false)
-      Filter.write_filters(@filters.reverse.to_file,session_prolog,current_userid,current_password)
+      Filter.write_filters(@filters.to_file,session_prolog,current_userid,current_password)
       redirect_to forward_url, notice:updated(:forward_settings)
     else
-      no = @filters.contains_antispam? ? 6 : 5 
+      no = @filters.contain_antispam? ? 6 : 5 
       (no-@filters.count).times do
         @filters << Filter.new
       end
@@ -67,7 +81,7 @@ class FiltersController < ApplicationController
 
       @filters, prolog = Filter.read_filters(current_userid,current_password)
       session_prolog(prolog)
-      @filters << Filter.new(actions_attributes:{'0'=>{destination:'Junk'}}) unless @filters.contains_antispam? 
+      @filters << Filter.new(actions_attributes:{'0'=>{destination:'Junk'}}) unless @filters.contain_antispam? 
     rescue RuntimeError => e
       @error = e.message
     end
