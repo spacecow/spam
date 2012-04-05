@@ -41,16 +41,16 @@ describe 'Filter, antispam: layout,' do
   context 'with forward filters' do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com")
       login_member
       visit antispam_path
     end
 
-    it "has only one field for antispam input" do
+    it "layout" do
+      #has only one field for antispam input
       form.lis_no(:antispam).should be(1) 
-    end
-
-    it "has a fields for address input, but it is hidden" do
+      #has a fields for address input, but it is hidden
       form.lis_no('forward').should be(1) 
       form.lis_no('hide').should be(1) 
     end
@@ -59,24 +59,20 @@ describe 'Filter, antispam: layout,' do
   context 'with antispam filter' do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Spam/")
       login_member
       visit antispam_path
     end
 
-    it "the spam selector is selected" do
+    it "layout" do
+      #the spam selector is selected
       value("Spam Filter").should eq 'X-Barracuda-Spam-Flag' 
-    end
-
-    it "the folder field is default to Junk" do
+      #the folder field is default to Junk
       value("Folder").should eq 'Spam'
-    end
-
-    it "has only one field for antispam input" do
+      #has only one field for antispam input
       form.lis_no(:antispam).should be(1) 
-    end
-
-    it "has a fields for address input, but it is hidden" do
+      #has a fields for address input, but it is hidden
       form.lis_no('forward').should be(0) 
       form.lis_no('hide').should be(0) 
     end
@@ -85,16 +81,16 @@ describe 'Filter, antispam: layout,' do
   context 'with forward&antispam filters' do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
       visit antispam_path
     end
 
-    it "has only one field for antispam input" do
+    it "layout" do
+      #has only one field for antispam input
       form.lis_no(:antispam).should be(1) 
-    end
-
-    it "has a fields for address input, but it is hidden" do
+      #has a fields for address input, but it is hidden
       form.lis_no('forward').should be(1) 
       form.lis_no('hide').should be(1) 
     end

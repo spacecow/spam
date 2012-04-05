@@ -77,7 +77,7 @@ class FiltersController < ApplicationController
     @filters = []
     params[:filter].keys.each do |k|
       if params[:filter][k][:actions_attributes]
-        @filters << Filter.new(params[:filter][k])
+        @filters << Filter.create(params[:filter][k])
       else
         operation = params[:filter][k][:operation]
         destination = params[:filter][k][:destination]

@@ -3,6 +3,7 @@ require 'spec_helper'
 describe Filter do
   context "read prolog from .procmailrc" do
     before(:each) do
+      Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       Filter.unstub(:read_filters)
       @filters, @prolog = Filter.read_filters

@@ -47,6 +47,7 @@ describe 'Filter, forward:' do
   context 'layout, with forward filters&prolog', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0\n*\n!example@email.com")
       login_member
     end
@@ -66,6 +67,7 @@ describe 'Filter, forward:' do
   context 'layout, with antispam filters&prolog', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
     end
@@ -83,6 +85,7 @@ describe 'Filter, forward:' do
   context 'layout, with forward&antispam filters', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0c\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
     end
@@ -104,6 +107,7 @@ describe 'Filter, forward:' do
   context 'update empty fields', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters("")
       login_member
       click_button 'Update'
@@ -116,6 +120,7 @@ describe 'Filter, forward:' do
   context 'error layout, with antispam filters', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
       fill_in 'Address 1', with:'exampleemail.com'
@@ -142,6 +147,7 @@ describe 'Filter, forward:' do
   context 'update filters without copy', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com")
       login_member
       fill_in 'Address 2', with:'example2@email.com'
@@ -167,6 +173,7 @@ describe 'Filter, forward:' do
   context 'update filter with copy', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com")
       login_member
       fill_in 'Address 2', with:'example2@email.com'

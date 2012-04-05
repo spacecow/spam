@@ -3,6 +3,7 @@ require 'spec_helper'
 describe 'Filter, forward: update,' do
   context 'with antispam filters&prolog' do
     before(:each) do
+      Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       Filter.unstub(:read_filters)
       login_member
@@ -19,6 +20,7 @@ describe 'Filter, forward: update,' do
   context 'with antispam&forward filters&prolog' do
     before(:each) do
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
       fill_in 'Address 1', with:'example@email.com'

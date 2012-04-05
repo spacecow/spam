@@ -17,10 +17,19 @@ describe 'Filter, antispam: update filter,' do
   context "folder error" do
     before(:each) do
       login_member
-      Filter.stub(:read_filters).and_return [[],""] 
+      Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0\n*\n!example@email.com")
+      #Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
-      Filter.stub(:read_filters).and_return [[],""] 
+      #Filter.stub(:read_filters).and_return [[],""] 
       select "Enabled", :from => "Spam Filter"
+    end
+
+    it "has only one field for antispam input on the error page" do
+      fill_in 'Folder', :with => '!"#'
+      click_button 'Update'
+      form.lis_no(:antispam).should be(1) 
     end
 
     it 'can only contain letters or numbers' do
@@ -43,23 +52,32 @@ describe 'Filter, antispam: update filter,' do
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       fill_in 'Folder', :with => 'Spam'
-      Filter.unstub(:read_filters)
-      click_button 'Update'
     end
     
     it "the spam selector is empty" do
+      Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
+      click_button 'Update'
       value("Spam Filter").should eq 'X-Barracuda-Spam-Flag' 
     end
 
-    it "the folder field is default to Junk" do
+    it "the folder field is changed" do
+      Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
+      click_button 'Update'
       value("Folder").should eq 'Spam'
     end
 
     it "shows a flash message" do
+      Filter.stub(:read_filters).and_return [[],""] 
+      click_button 'Update'
       page.should have_notice('Anti-Spam Settings successfully updated.')
     end
 
     it "gets saved to .procmailrc" do
+      Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
+      click_button 'Update'
       filters, prolog = Filter.read_filters
       filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Spam/"
     end
@@ -70,6 +88,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.stub(:read_filters).and_return [[],""] 
       login_member
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0\n*\n!example@email.com")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
@@ -88,6 +107,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.stub(:read_filters).and_return [[],""] 
       login_member
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
@@ -105,6 +125,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.stub(:read_filters).and_return [[],""] 
       login_member
       Filter.unstub(:read_filters)
+      Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
