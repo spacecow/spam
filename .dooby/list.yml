@@ -1,9 +1,9 @@
 --- 
 62fe6b: !ruby/object:Dooby::Task 
   todo: jqueryinput on locales :done
-6a7d45: !ruby/object:Dooby::Task 
-  todo: simple filter/rule/action :doing
 37da04: !ruby/object:Dooby::Task 
   todo: test empty line after action
 2ad18e: !ruby/object:Dooby::Task 
   todo: simple filter/rule/action :done
+af34bd: !ruby/object:Dooby::Task 
+  todo: change \s to .* in rule :done

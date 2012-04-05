@@ -66,7 +66,7 @@ describe 'Filter, forward:' do
   context 'layout, with antispam filters&prolog', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
     end
 
@@ -83,7 +83,7 @@ describe 'Filter, forward:' do
   context 'layout, with forward&antispam filters', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0c\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters(":0c\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
     end
 
@@ -116,7 +116,7 @@ describe 'Filter, forward:' do
   context 'error layout, with antispam filters', filters:true do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
       fill_in 'Address 1', with:'exampleemail.com'
       check("Keep a copy on the server")

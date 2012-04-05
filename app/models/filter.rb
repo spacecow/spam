@@ -31,7 +31,7 @@ class Filter < ActiveRecord::Base
 
   class << self
     def factory_anti_spam(operation,destination='Junk')
-      factory([":0:","* ^#{operation}: YES", ".#{destination}/"])
+      factory([":0:","* ^#{operation}:.*YES", ".#{destination}/"])
     end
     def factory_anti_spam_medium
       factory_anti_spam(Rule::X_SPAM_FLAG)

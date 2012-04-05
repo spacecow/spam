@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Filter do
   context "read prolog from .procmailrc" do
     before(:each) do
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       Filter.unstub(:read_filters)
       @filters, @prolog = Filter.read_filters
     end
@@ -15,7 +15,7 @@ describe Filter do
     it "prolog is saved together with the filters" do
       Filter.write_filters(@filters.to_file,@prolog)
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/"
+      filters.to_file.should eq ":0:\n* ^X-Spam-Flag:.*YES\n.Junk/"
       prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
@@ -28,7 +28,7 @@ describe Filter do
 
     context "works" do
       it "without trailing enter" do
-        Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/")
+        Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       end
 
       it "with trailing enter" do
@@ -115,7 +115,7 @@ describe Filter do
       end
 
       it "correct #to_file method" do
-        @filter.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/"
+        @filter.to_file.should eq ":0:\n* ^X-Spam-Flag:.*YES\n.Junk/"
       end
     end
 
@@ -157,7 +157,7 @@ describe Filter do
       end
 
       it "correct #to_file method" do
-        @filter.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"
+        @filter.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Junk/"
       end
     end
   end

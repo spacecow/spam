@@ -59,7 +59,7 @@ describe 'Filter, antispam: layout,' do
   context 'with antispam filter' do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Spam/")
+      Filter.write_filters(":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Spam/")
       login_member
       visit antispam_path
     end
@@ -85,7 +85,7 @@ describe 'Filter, antispam: layout,' do
   context 'with forward&antispam filters' do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters(":0\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
       visit antispam_path
     end

@@ -4,7 +4,7 @@ describe Rule do
   describe "#separate_attributes" do
     describe "medium level anti spam rule" do
       before(:each) do
-        s = "* ^X-Spam-Flag: YES"
+        s = "* ^X-Spam-Flag:.*YES"
         (@section, @part, @content) = Rule.separate_attributes(s)
       end
 
@@ -23,7 +23,7 @@ describe Rule do
 
     describe "high level anti spam rule" do
       before(:each) do
-        s = "* ^X-Barracuda-Spam-Flag: YES"
+        s = "* ^X-Barracuda-Spam-Flag:.*YES"
         (@section, @part, @content) = Rule.separate_attributes(s)
       end
 
@@ -44,7 +44,7 @@ describe Rule do
   describe "#anti_spam_factory" do
     context "create a medium level anti spam rule" do
       before(:each) do
-        @a = ["* ^X-Spam-Flag: YES",".Junk/"]
+        @a = ["* ^X-Spam-Flag:.*YES",".Junk/"]
         @rule = Rule.factory(@a)
       end
 
@@ -71,7 +71,7 @@ describe Rule do
 
     context "create a high level anti spam rule" do
       before(:each) do
-        @a = ["* ^X-Barracuda-Spam-Flag: YES",".Junk/"]
+        @a = ["* ^X-Barracuda-Spam-Flag:.*YES",".Junk/"]
         @rule = Rule.factory(@a)
       end
 

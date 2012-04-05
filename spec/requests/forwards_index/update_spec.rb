@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Filter, forward: update,' do
   context 'with antispam filters&prolog' do
     before(:each) do
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       Filter.unstub(:read_filters)
       login_member
       click_button 'Update'
@@ -11,7 +11,7 @@ describe 'Filter, forward: update,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/"
+      filters.to_file.should eq ":0:\n* ^X-Spam-Flag:.*YES\n.Junk/"
       prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
@@ -19,7 +19,7 @@ describe 'Filter, forward: update,' do
   context 'with antispam&forward filters&prolog' do
     before(:each) do
       Filter.unstub(:read_filters)
-      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
       fill_in 'Address 1', with:'example@email.com'
       click_button 'Update'
@@ -27,7 +27,7 @@ describe 'Filter, forward: update,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Spam-Flag: YES\n.Junk/\n\n:0\n*\n!example@email.com"
+      filters.to_file.should eq ":0:\n* ^X-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com"
       prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end

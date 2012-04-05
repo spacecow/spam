@@ -61,7 +61,7 @@ describe 'Filter, antispam: update filter,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Spam/"
+      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Spam/"
     end
   end
 
@@ -78,7 +78,7 @@ describe 'Filter, antispam: update filter,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0\n*\n!example@email.com\n\n:0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"
+      filters.to_file.should eq ":0\n*\n!example@email.com\n\n:0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Junk/"
       prolog.should eq "SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log"
     end
   end
@@ -88,7 +88,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.stub(:read_filters).and_return [[],""] 
       login_member
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/")
+      Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       click_button 'Update'
@@ -96,7 +96,7 @@ describe 'Filter, antispam: update filter,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/"
+      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Junk/"
     end
   end
 
@@ -105,7 +105,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.stub(:read_filters).and_return [[],""] 
       login_member
       Filter.unstub(:read_filters)
-      Filter.write_filters(":0:\n* ^X-Spam-Flag: YES\n.Junk/\n\n:0\n*\n!example@email.com")
+      Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com")
       visit antispam_path
       select "Enabled", :from => "Spam Filter"
       click_button 'Update'
@@ -113,7 +113,7 @@ describe 'Filter, antispam: update filter,' do
 
     it "gets saved to .procmailrc" do
       filters, prolog = Filter.read_filters
-      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag: YES\n.Junk/\n\n:0\n*\n!example@email.com"
+      filters.to_file.should eq ":0:\n* ^X-Barracuda-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com"
     end
   end
 end

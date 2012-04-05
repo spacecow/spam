@@ -27,7 +27,7 @@ class Rule < ActiveRecord::Base
     end
     ret += "*"
     ret += " #{part_section}:" unless section.blank?
-    ret += " #{content}" unless content.blank?
+    ret += ".*#{content}" unless content.blank?
     ret
   end
 
@@ -52,7 +52,7 @@ class Rule < ActiveRecord::Base
     end
 
     def separate_attributes(s)
-      data = s.match(/\*\s\^(.*):\sYES/)
+      data = s.match(/\*\s\^(.*):\.\*YES/)
       [data[1], BEGINS_WITH, 'YES']
     end
 
@@ -78,8 +78,8 @@ class Rule < ActiveRecord::Base
 
     def is_antispam?(s)
       case s
-        when "* ^X-Spam-Flag: YES"; return true
-        when "* ^X-Barracuda-Spam-Flag: YES"; return true
+        when "* ^X-Spam-Flag:.*YES"; return true
+        when "* ^X-Barracuda-Spam-Flag:.*YES"; return true
       end
     end
   end
