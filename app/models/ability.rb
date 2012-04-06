@@ -10,6 +10,9 @@ class Ability
         can [:index,:create,:update_multiple], Translation
         can :index, Locale
       end
+      if user.role? :god
+        manage :all
+      end
     end
   end
 end

@@ -3,16 +3,21 @@
 $main_frame_border_colour: #2c4153
 $main_frame_colour: #486e92
 
-$contents_container_width: 400px
-$main_width: 380px
+$contents_container_width: 500px
+$main_width: $contents_container_width - 20px 
 $main_margin_width: ($contents_container_width - $main_width)/2
 
 $main_radius: 10px
 $user_nav_height: 24px
 
-$label_width: 100px
+$label_width: 150px
 $label_margin_width: 5px
 $full_label_width: $label_width + $label_margin_width
+
+$notice_dark: #396
+$notice_light: #4CC417
+$alert_dark: #933
+$alert_light: #f33
 
 @mixin two-col($width)
   padding-left: $width 
@@ -49,28 +54,33 @@ form
       text-align: right
       margin: 4px $label_margin_width 0 $full_label_width * -1
     p.inline-errors
+      font-size: 12px
       color: red
       font-style: italic
   div#flash_plus_button
-    height: 39px
-    padding-left: 300px
+    height: 45px
     margin-top: 10px
     background: $main_frame_colour
-    div.flash
-      font-size: 12px
-      margin: 12px 0 0 -290px
-      float: left
-      color: white
     input
-      margin: 10px 0 5px 0 
+      float: right
+      margin: 10px 90px 10px 0 
   div#keep
     +two-col(230px)
     label
       font-size: 14px
 
 div#contents_container
-  margin: 90px auto 0 auto 
+  margin: 60px auto 0 auto 
   width: $contents_container_width 
+  div#flash_container
+    height: 30px
+    div#flash_alert
+      color: $alert_dark
+      text-shadow: 3px 3px 3px $alert_light
+    div#flash_notice
+      color: $notice_dark
+      text-shadow: 3px 3px 3px $notice_light
+      
   div#main_container
     background: $main_frame_colour
     +border-radius($main_radius)
@@ -82,7 +92,7 @@ div#contents_container
       a
         color: white
     div#main
-      width: 380px
+      width: $main_width 
       margin: 0 auto
       background: white
       border: 1px solid $main_frame_border_colour
@@ -92,6 +102,7 @@ div#contents_container
         margin: 15px 0 10px $main_margin_width
         font-weight: bold
   div#footer
+    margin: 5px 10px 0 0
     font-size: 11px
     font-style: italic
     text-align: right

@@ -21,7 +21,7 @@ describe 'Filter, antispam: layout,' do
     end
 
     it "the spam selector has options" do
-      options("Spam Filter").should eq "BLANK, Enabled"
+      options("Spam Filter").should eq "BLANK, Enable"
     end
 
     it "the folder field is default to Junk" do

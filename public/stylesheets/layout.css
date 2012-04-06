@@ -1,89 +1,97 @@
-/* line 24, ../../app/assets/stylesheets/layout.sass */
+/* line 29, ../../app/assets/stylesheets/layout.sass */
 div.clear {
   clear: both;
   height: 0;
   overflow: hidden;
 }
 
-/* line 28, ../../app/assets/stylesheets/layout.sass */
+/* line 33, ../../app/assets/stylesheets/layout.sass */
 a {
   text-decoration: none;
   color: #486e92;
 }
 
-/* line 32, ../../app/assets/stylesheets/layout.sass */
+/* line 37, ../../app/assets/stylesheets/layout.sass */
 .hide {
   height: 0;
   visibility: hidden;
 }
 
-/* line 36, ../../app/assets/stylesheets/layout.sass */
+/* line 41, ../../app/assets/stylesheets/layout.sass */
 div#error {
   margin: 5px 10px;
   background: lightgray;
 }
 
-/* line 39, ../../app/assets/stylesheets/layout.sass */
+/* line 44, ../../app/assets/stylesheets/layout.sass */
 div#msg {
   margin: 5px 10px;
 }
 
-/* line 43, ../../app/assets/stylesheets/layout.sass */
+/* line 48, ../../app/assets/stylesheets/layout.sass */
 form li {
-  padding-left: 105px;
+  padding-left: 155px;
   list-style-type: none;
 }
-/* line 46, ../../app/assets/stylesheets/layout.sass */
+/* line 51, ../../app/assets/stylesheets/layout.sass */
 form li label {
   float: left;
-  width: 100px;
+  width: 150px;
   text-align: right;
-  margin: 4px 5px 0 -105px;
+  margin: 4px 5px 0 -155px;
 }
-/* line 51, ../../app/assets/stylesheets/layout.sass */
+/* line 56, ../../app/assets/stylesheets/layout.sass */
 form li p.inline-errors {
+  font-size: 12px;
   color: red;
   font-style: italic;
 }
-/* line 54, ../../app/assets/stylesheets/layout.sass */
+/* line 60, ../../app/assets/stylesheets/layout.sass */
 form div#flash_plus_button {
-  height: 39px;
-  padding-left: 300px;
+  height: 45px;
   margin-top: 10px;
   background: #486e92;
 }
-/* line 59, ../../app/assets/stylesheets/layout.sass */
-form div#flash_plus_button div.flash {
-  font-size: 12px;
-  margin: 12px 0 0 -290px;
-  float: left;
-  color: white;
-}
 /* line 64, ../../app/assets/stylesheets/layout.sass */
 form div#flash_plus_button input {
-  margin: 10px 0 5px 0;
+  float: right;
+  margin: 10px 90px 10px 0;
 }
-/* line 66, ../../app/assets/stylesheets/layout.sass */
+/* line 67, ../../app/assets/stylesheets/layout.sass */
 form div#keep {
   padding-left: 230px;
   margin-top: 10px;
 }
-/* line 20, ../../app/assets/stylesheets/layout.sass */
+/* line 25, ../../app/assets/stylesheets/layout.sass */
 form div#keep div.first-col {
   margin-left: -220px;
   float: left;
 }
-/* line 68, ../../app/assets/stylesheets/layout.sass */
+/* line 69, ../../app/assets/stylesheets/layout.sass */
 form div#keep label {
   font-size: 14px;
 }
 
-/* line 71, ../../app/assets/stylesheets/layout.sass */
+/* line 72, ../../app/assets/stylesheets/layout.sass */
 div#contents_container {
-  margin: 90px auto 0 auto;
-  width: 400px;
+  margin: 60px auto 0 auto;
+  width: 500px;
 }
-/* line 74, ../../app/assets/stylesheets/layout.sass */
+/* line 75, ../../app/assets/stylesheets/layout.sass */
+div#contents_container div#flash_container {
+  height: 30px;
+}
+/* line 77, ../../app/assets/stylesheets/layout.sass */
+div#contents_container div#flash_container div#flash_alert {
+  color: #993333;
+  text-shadow: 3px 3px 3px #ff3333;
+}
+/* line 80, ../../app/assets/stylesheets/layout.sass */
+div#contents_container div#flash_container div#flash_notice {
+  color: #339966;
+  text-shadow: 3px 3px 3px #4cc417;
+}
+/* line 84, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container {
   background: #486e92;
   -webkit-border-radius: 10px;
@@ -92,33 +100,34 @@ div#contents_container div#main_container {
   -o-border-radius: 10px;
   border-radius: 10px;
 }
-/* line 77, ../../app/assets/stylesheets/layout.sass */
+/* line 87, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#user_nav {
   font-size: 14px;
   height: 24px;
   margin-left: 10px;
   padding-top: 5px;
 }
-/* line 82, ../../app/assets/stylesheets/layout.sass */
+/* line 92, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#user_nav a {
   color: white;
 }
-/* line 84, ../../app/assets/stylesheets/layout.sass */
+/* line 94, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#main {
-  width: 380px;
+  width: 480px;
   margin: 0 auto;
   background: white;
   border: 1px solid #2c4153;
   padding: 0;
 }
-/* line 90, ../../app/assets/stylesheets/layout.sass */
+/* line 100, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#main_container div#main h1 {
   font-size: 18px;
   margin: 15px 0 10px 10px;
   font-weight: bold;
 }
-/* line 94, ../../app/assets/stylesheets/layout.sass */
+/* line 104, ../../app/assets/stylesheets/layout.sass */
 div#contents_container div#footer {
+  margin: 5px 10px 0 0;
   font-size: 11px;
   font-style: italic;
   text-align: right;

@@ -21,11 +21,11 @@ describe 'Layout' do
     before(:each){ login_member }
 
     it "has a 'Mail-forwarding' link" do
-      user_nav.should have_link('Mail-forwarding')
+      user_nav.should_not have_link('Mail-forwarding')
     end
 
     it "has a 'Spam-filtering' link" do
-      user_nav.should have_link('Mail-forwarding')
+      user_nav.should_not have_link('Mail-forwarding')
     end
 
     it "has no link to translations" do
@@ -49,16 +49,16 @@ describe 'Layout' do
   context 'member links to' do
     before(:each){ login_member }
 
-    it "'Mail-forwarding' links to the forward page" do
-      Filter.stub(:read_filters).and_return [[],""] 
-      user_nav.click_link('Mail-forwarding')
-      current_path.should eq forward_path
-    end
+    #it "'Mail-forwarding' links to the forward page" do
+    #  Filter.stub(:read_filters).and_return [[],""] 
+    #  user_nav.click_link('Mail-forwarding')
+    #  current_path.should eq forward_path
+    #end
 
-    it "'Mail-forwarding' links to the forward page" do
-      Filter.stub(:read_filters).and_return [[],""] 
-      user_nav.click_link('Spam-filtering')
-      current_path.should eq antispam_path
-    end
+    #it "'Mail-forwarding' links to the forward page" do
+    #  Filter.stub(:read_filters).and_return [[],""] 
+    #  user_nav.click_link('Spam-filtering')
+    #  current_path.should eq antispam_path
+    #end
   end
 end

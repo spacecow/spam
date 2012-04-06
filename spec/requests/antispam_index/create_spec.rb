@@ -23,7 +23,7 @@ describe 'Filter, antispam: update filter,' do
       #Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
       #Filter.stub(:read_filters).and_return [[],""] 
-      select "Enabled", :from => "Spam Filter"
+      select "Enable", :from => "Spam Filter"
     end
 
     it "has only one field for antispam input on the error page" do
@@ -50,7 +50,7 @@ describe 'Filter, antispam: update filter,' do
       login_member
       Filter.stub(:read_filters).and_return [[],""] 
       visit antispam_path
-      select "Enabled", :from => "Spam Filter"
+      select "Enable", :from => "Spam Filter"
       fill_in 'Folder', :with => 'Spam'
     end
     
@@ -91,7 +91,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com","SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log")
       visit antispam_path
-      select "Enabled", :from => "Spam Filter"
+      select "Enable", :from => "Spam Filter"
       click_button 'Update'
     end
 
@@ -110,7 +110,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       visit antispam_path
-      select "Enabled", :from => "Spam Filter"
+      select "Enable", :from => "Spam Filter"
       click_button 'Update'
     end
 
@@ -129,7 +129,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com")
       visit antispam_path
-      select "Enabled", :from => "Spam Filter"
+      select "Enable", :from => "Spam Filter"
       click_button 'Update'
     end
 

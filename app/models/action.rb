@@ -5,8 +5,8 @@ class Action < ActiveRecord::Base
   FORWARD_MESSAGE_TO = "forward_message_to"
   MOVE_MESSAGE_TO = "move_message_to"
 
-  validates :destination, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, :message => "is invalid"}, :unless => Proc.new{|e| e.operation == MOVE_MESSAGE_TO}
-  validates :destination, :format => {:with => /^[A-Za-z0-9]+$/, :message => "can only contain letters or numbers"}, :if => Proc.new{|e| e.operation == MOVE_MESSAGE_TO}
+  validates :destination, :format => {:with => /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/, :message => I18n.t("activerecord.errors.messages.invalid")}, :unless => Proc.new{|e| e.operation == MOVE_MESSAGE_TO}
+  validates :destination, :format => {:with => /^[A-Za-z0-9]+$/, :message => I18n.t("activerecord.errors.messages.letters_or_numbers")}, :if => Proc.new{|e| e.operation == MOVE_MESSAGE_TO}
 
   def <=>(action)
     self.operation <=> action.operation

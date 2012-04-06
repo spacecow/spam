@@ -1,7 +1,7 @@
 <div id="user_nav">
   <% if current_user %>
-    <%= link_to jt(:mail_forwarding), forward_path %>
-    <%= link_to jt(:spam_filtering), antispam_path %>
+    <%# link_to jt(:mail_forwarding), forward_path %>
+    <%# link_to jt(:spam_filtering), antispam_path %>
     <%= link_to pl(:translation), translations_path if can? :index, Translation %>
     <%= link_to jt(:logout), logout_path %>
   <% else %>
