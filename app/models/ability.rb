@@ -11,7 +11,7 @@ class Ability
         can :index, Locale
       end
       if user.role? :god
-        manage :all
+        can :manage, :all
       end
     end
   end

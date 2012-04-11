@@ -69,9 +69,10 @@ describe 'Filter, forward: update,' do
   context 'updates .forward' do
     before(:each) do
       login_member
-      Filter.unstub(:read_forward)
       Filter.stub(:read_filters).and_return [[],[]] 
       fill_in 'Address 1', with:'example@email.com'
+      Filter.unstub(:read_forward)
+      Filter.unstub(:write_forward)
       click_button 'Update'
     end
     

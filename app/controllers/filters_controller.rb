@@ -7,8 +7,16 @@ class FiltersController < ApplicationController
       forward = Filter.read_forward(current_userid,current_password)
       if forward.blank?
         Filter.write_forward(current_userid,current_password)
-      elsif forward != "\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 ##{current_userid}\""
-        raise ".forward is wrongly_formatted: '#{forward}'." 
+      elsif forward == "\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 ##{current_userid}\""
+      else
+        @filters, p = Filter.send("abstract_factory",Filter.forward_to_procmail(forward.split("\n")))
+        if @filters.map(&:valid?).include?(false)
+          raise ".forward is wrongly_formatted: '#{forward}'." 
+        else
+          new_filters, prolog = Filter.read_filters(current_userid,current_password)
+          @filters += new_filters
+          raise mess(:move_forward_into_procmailrc?) 
+        end
       end
 
       @filters, prolog = Filter.read_filters(current_userid,current_password)
@@ -22,8 +30,12 @@ class FiltersController < ApplicationController
         @filters << Filter.new
       end
     rescue RuntimeError => e
-      ErrorMailer.filter_error(session_userid,e).deliver
-      @error = e.message
+      if e.message == mess(:move_forward_into_procmailrc?)
+        @move = e.message
+      else
+        ErrorMailer.filter_error(session_userid,e).deliver
+        @error = e.message
+      end
     end
   end
 
@@ -59,6 +71,7 @@ class FiltersController < ApplicationController
     end
     unless @filters.map(&:valid?).include?(false)
       Filter.write_filters(@filters.to_file,session_prolog,current_userid,current_password)
+      Filter.write_forward(current_userid,current_password)
       redirect_to forward_url, notice:updated(:forward_settings)
     else
       no = @filters.contain_antispam? ? 6 : 5 
@@ -100,7 +113,7 @@ class FiltersController < ApplicationController
     end
     unless @filters.map(&:valid?).include?(false)
       Filter.write_filters(@filters.to_file,session_prolog,current_userid,current_password)
-      redirect_to antispam_url, notice:updated(:anti_spam_settings)
+      redirect_to filter_url, notice:updated(:anti_spam_settings)
     else
       render :antispam
     end

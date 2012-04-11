@@ -5,7 +5,7 @@ describe 'Filter, antispam: layout,' do
     before(:each) do
       login_member
       Filter.stub(:read_filters).and_return [[],""] 
-      visit antispam_path
+      visit filter_path
     end
 
     it "has a title" do
@@ -44,7 +44,7 @@ describe 'Filter, antispam: layout,' do
       Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com")
       login_member
-      visit antispam_path
+      visit filter_path
     end
 
     it "layout" do
@@ -62,7 +62,7 @@ describe 'Filter, antispam: layout,' do
       Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Spam/")
       login_member
-      visit antispam_path
+      visit filter_path
     end
 
     it "layout" do
@@ -84,7 +84,7 @@ describe 'Filter, antispam: layout,' do
       Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com\n\n:0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
       login_member
-      visit antispam_path
+      visit filter_path
     end
 
     it "layout" do

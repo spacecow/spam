@@ -51,6 +51,31 @@ class Filter < ActiveRecord::Base
       factory([":0","*","!#{email}"]) 
     end
 
+    def copy_forward_to_procmail(s)
+      ":0c\n*\n!#{s}"
+    end
+    def message_forward_to_procmail(s)
+      ":0\n*\n!#{s}"
+    end
+
+    def forward_to_procmail(a)
+      copy = false
+      a.map do |e|
+        if e =~ /\/usr\/local\/bin\/procmail/
+          nil
+        elsif e =~ /^\\\w+/
+          copy = true
+          nil
+        elsif copy
+          copy_forward_to_procmail(e)
+        elsif a.last == e
+          message_forward_to_procmail(e)
+        else
+          copy_forward_to_procmail(e)
+        end
+      end.compact.join("\n\n") 
+    end
+
     def read_forward(userid="test",passwd="correct")
       p "Loading .forward..."
       IO.popen("/usr/local/sbin/chfwd -g #{userid}", 'r+') do |pipe|
@@ -69,11 +94,11 @@ class Filter < ActiveRecord::Base
       end
     end
 
-    def write_filters(s,prolog="",userid="test",password="password")
+    def write_filters(s,prolog=nil,userid="test",password="password")
       p "Writing .procmailrc..."
       IO.popen("/usr/local/sbin/chprocmailrc -s #{userid}", 'r+') do |pipe|
         pipe.write("#{password}\n")
-        if prolog.empty?
+        if prolog.nil?
           pipe.write("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=/var/log/procmail/#{userid}.log\nVERBOSE=on")
         else
           pipe.write "#{prolog}" 
@@ -83,11 +108,15 @@ class Filter < ActiveRecord::Base
         pipe.close_write
       end
     end
-    def write_forward(userid="test",password="password")
+    def write_forward(userid="test",password="password", s=nil)
       p "Writing .forward..."
       IO.popen("/usr/local/sbin/chfwd -s #{userid}", 'r+') do |pipe|
         pipe.write("#{password}\n")
-        pipe.write("\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 ##{userid}\"\n")
+        if s.nil?
+          pipe.write("\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 ##{userid}\"\n")
+        else
+          pipe.write("#{s.strip}\n")
+        end
         pipe.close_write
       end
     end

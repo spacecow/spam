@@ -49,6 +49,26 @@ describe Filter do
     end
   end
 
+  describe "#address_to_procmail" do
+    it "single address" do
+      Filter.forward_to_procmail(["example@email.com"]).should eq ":0\n*\n!example@email.com"
+    end
+    it "double addresses" do
+      Filter.forward_to_procmail(["example@email.com","example2@email.com"]).should eq ":0c\n*\n!example@email.com\n\n:0\n*\n!example2@email.com"
+    end
+
+    it "copy single address" do
+      Filter.forward_to_procmail(["\\member","example@email.com"]).should eq ":0c\n*\n!example@email.com"
+    end
+    it "double copy addresses" do
+      Filter.forward_to_procmail(["\\member","example@email.com","example2@email.com"]).should eq ":0c\n*\n!example@email.com\n\n:0c\n*\n!example2@email.com"
+    end
+
+    it "address with pipe" do
+      Filter.forward_to_procmail(["\"|IFS=' ' && exec /usr/local/bin/procmail -f- || exit 75 #member\"","example@email.com"]).should eq ":0\n*\n!example@email.com"
+    end
+  end
+
   describe "#read/write forward filters" do
     before(:each) do
       Filter.unstub(:read_filters)

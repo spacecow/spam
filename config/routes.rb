@@ -14,7 +14,7 @@ Spam::Application.routes.draw do
     end
   end
   get 'forward' => 'filters#forward'
-  get 'antispam' => 'filters#antispam'
+  get 'filter' => 'filters#antispam'
 
   resources :locales, :only => :index
   resources :translations, :only => [:index,:create] do

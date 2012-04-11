@@ -1,0 +1,12 @@
+<div id="msg">
+  <%= @move %>
+</div>
+
+<%= form_tag update_multiple_forward_filters_path, :method => :put do %>
+  <% @filters.each_with_index do |filter,i| %>
+    <%= render 'filter_field', i:i, filter:filter %>
+  <% end %>
+  <div id="flash_plus_button">
+    <%= submit_tag jt(:move_them) %>
+  </div>
+<% end %>

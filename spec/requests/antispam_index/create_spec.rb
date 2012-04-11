@@ -5,7 +5,7 @@ describe 'Filter, antispam: update filter,' do
     before(:each) do
       login_member
       Filter.stub(:read_filters).and_return [[],""] 
-      visit antispam_path
+      visit filter_path
       Filter.stub(:read_filters).and_return [[],""] 
       click_button 'Update'
     end
@@ -21,7 +21,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:write_filters)
       Filter.write_filters("SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log\n\n:0\n*\n!example@email.com")
       #Filter.stub(:read_filters).and_return [[],""] 
-      visit antispam_path
+      visit filter_path
       #Filter.stub(:read_filters).and_return [[],""] 
       select "Enable", :from => "Spam Filter"
     end
@@ -49,7 +49,7 @@ describe 'Filter, antispam: update filter,' do
     before(:each) do
       login_member
       Filter.stub(:read_filters).and_return [[],""] 
-      visit antispam_path
+      visit filter_path
       select "Enable", :from => "Spam Filter"
       fill_in 'Folder', :with => 'Spam'
     end
@@ -90,7 +90,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:read_filters)
       Filter.unstub(:write_filters)
       Filter.write_filters(":0\n*\n!example@email.com","SHELL=/bin/sh\nMAILDIR=$HOME/Maildir/\nLOGFILE=$HOME/procmail.log")
-      visit antispam_path
+      visit filter_path
       select "Enable", :from => "Spam Filter"
       click_button 'Update'
     end
@@ -109,7 +109,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:read_filters)
       Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/")
-      visit antispam_path
+      visit filter_path
       select "Enable", :from => "Spam Filter"
       click_button 'Update'
     end
@@ -128,7 +128,7 @@ describe 'Filter, antispam: update filter,' do
       Filter.unstub(:read_filters)
       Filter.unstub(:write_filters)
       Filter.write_filters(":0:\n* ^X-Spam-Flag:.*YES\n.Junk/\n\n:0\n*\n!example@email.com")
-      visit antispam_path
+      visit filter_path
       select "Enable", :from => "Spam Filter"
       click_button 'Update'
     end

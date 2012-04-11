@@ -1,5 +1,7 @@
 <% if @error %>
   <%= render 'error' %>
+<% elsif @move %>
+  <%= render 'move' %>
 <% else %>
   <%= render 'forward' %>
 <% end %>

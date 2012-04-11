@@ -9,7 +9,7 @@ class SessionsController < ApplicationController
   def create
     userid = params[:username]
     passwd = params[:password]
-    if authpam(userid,passwd)
+    if userid.present? and authpam(userid,passwd)
       user = User.find_or_create_by_userid(userid)
       session_userid(user.id)
       session_password(passwd)
