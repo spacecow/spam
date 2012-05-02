@@ -46,9 +46,9 @@ describe "Sessions" do
       end
 
       it "redirects to wanted page after login" do
-        visit filter_path
+        visit filtering_path
         login
-        current_path.should eq filter_path
+        current_path.should eq filtering_path
       end 
     end
 

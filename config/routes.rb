@@ -13,8 +13,8 @@ Spam::Application.routes.draw do
       put :update_multiple_antispam
     end
   end
-  get 'forward' => 'filters#forward'
-  get 'filter' => 'filters#antispam'
+  get 'forwarding' => 'filters#forward'
+  get 'filtering' => 'filters#antispam'
 
   resources :locales, :only => :index
   resources :translations, :only => [:index,:create] do

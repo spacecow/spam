@@ -19,7 +19,7 @@ class SessionsController < ApplicationController
         session_original_url(nil)
         redirect_to url and return
       else
-        redirect_to forward_path 
+        redirect_to forwarding_url 
       end
     else
       redirect_to login_path, :alert => alertify(:invalid_login_or_password)

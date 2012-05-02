@@ -72,7 +72,7 @@ class FiltersController < ApplicationController
     unless @filters.map(&:valid?).include?(false)
       Filter.write_filters(@filters.to_file,session_prolog,current_userid,current_password)
       Filter.write_forward(current_userid,current_password)
-      redirect_to forward_url, notice:updated(:forward_settings)
+      redirect_to forwarding_url, notice:updated(:forward_settings)
     else
       no = @filters.contain_antispam? ? 6 : 5 
       (no-@filters.count).times do
@@ -113,7 +113,7 @@ class FiltersController < ApplicationController
     end
     unless @filters.map(&:valid?).include?(false)
       Filter.write_filters(@filters.to_file,session_prolog,current_userid,current_password)
-      redirect_to filter_url, notice:updated(:anti_spam_settings)
+      redirect_to filtering_url, notice:updated(:anti_spam_settings)
     else
       render :antispam
     end
